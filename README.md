@@ -11,10 +11,22 @@ npm run dev
 
 После запуска страница доступна по адресу `http://localhost:3000`.
 
-## Сборка и размещение
+## Сборка
 
 ```bash
 npm run build
 ```
+
+## Размещение в GitHub Pages
+
+Команда соберёт статическую версию сайта, создаст ветку `gh-pages` и отправит её в `origin`:
+
+```bash
+npm run deploy
+```
+
+В настройках репозитория GitHub выберите **Settings → Pages → Deploy from a branch**, затем ветку `gh-pages` и каталог `/ (root)`.
+
+Сайт будет доступен по адресу `https://jho00.github.io/iisit-student-journey/`.
 
 Прогресс студентов хранится локально в браузере и не требует базы данных.

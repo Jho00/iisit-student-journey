@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
+export const dynamic = 'force-static';
+
 type Lab = {
   id: string;
   number: string;
@@ -160,15 +162,26 @@ export default function Home() {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    let savedProgress: string[] = [];
+    let savedDarkTheme = false;
+
     try {
       const saved = localStorage.getItem('iisit-journey-progress');
       const savedTheme = localStorage.getItem('iisit-journey-theme');
-      if (saved) setCompleted(JSON.parse(saved));
-      if (savedTheme === 'dark') setDark(true);
+      const parsed = saved ? JSON.parse(saved) : [];
+      if (Array.isArray(parsed)) savedProgress = parsed;
+      savedDarkTheme = savedTheme === 'dark';
     } catch {
       localStorage.removeItem('iisit-journey-progress');
     }
-    setHydrated(true);
+
+    const frame = requestAnimationFrame(() => {
+      setCompleted(savedProgress);
+      setDark(savedDarkTheme);
+      setHydrated(true);
+    });
+
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {

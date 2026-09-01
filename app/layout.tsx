@@ -1,7 +1,12 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+const githubPagesUrl = 'https://jho00.github.io/iisit-student-journey';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ?? (process.env.GITHUB_PAGES === 'true' ? githubPagesUrl : 'http://localhost:3000');
+const socialImageUrl = new URL('og.png', `${siteUrl.replace(/\/$/, '')}/`).toString();
+
+export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -10,13 +15,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Интеллектуальные технологии и системы',
     description: 'От первой лабораторной до экзамена.',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Интеллектуальные технологии и системы' }],
+    images: [{ url: socialImageUrl, width: 1200, height: 630, alt: 'Интеллектуальные технологии и системы' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Интеллектуальные технологии и системы',
     description: 'От первой лабораторной до экзамена.',
-    images: ['/og.png'],
+    images: [socialImageUrl],
   },
 };
 
