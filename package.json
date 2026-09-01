@@ -1,11 +1,14 @@
 {
   "name": "sites-project",
   "version": "0.1.0",
+  "homepage": "https://jho00.github.io/iisit-student-journey",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "vinext dev",
     "build": "vinext build",
     "start": "vinext start",
@@ -28,6 +31,7 @@
     "@vitejs/plugin-rsc": "0.5.26",
     "eslint": "9.39.4",
     "eslint-config-next": "16.2.6",
+    "gh-pages": "^6.3.0",
     "react-server-dom-webpack": "19.2.6",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3",
