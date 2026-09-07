@@ -193,10 +193,11 @@ export default function Home() {
   const progress = Math.round((completedCount / progressIds.length) * 100);
   const topicChosen = completed.includes('cw-topic');
   const firstThreeLabsDone = labs.slice(0, 3).every((lab) => completed.includes(lab.id));
-  const allLabsDone = labs.every((lab) => completed.includes(lab.id));
+  const completedLabsCount = labs.filter((lab) => completed.includes(lab.id)).length;
+  const enoughLabsForExam = completedLabsCount >= 5;
   const courseworkDone = completed.includes('cw-submit');
   const attestationReady = topicChosen && firstThreeLabsDone;
-  const examReady = allLabsDone && courseworkDone;
+  const examReady = enoughLabsForExam && courseworkDone;
 
   const nextStepId = useMemo(
     () => progressIds.find((id) => !completed.includes(id)),
@@ -313,7 +314,7 @@ export default function Home() {
             <span className="status-dot" aria-hidden="true" />
             <div>
               <b>Допуск к экзамену</b>
-              <small>{examReady ? 'Маршрут завершён' : 'Нужны все ЛР и курсовая'}</small>
+              <small>{examReady ? 'Условия допуска выполнены' : !enoughLabsForExam ? 'Нет допуска: сдано меньше 5 ЛР' : 'Нужна защищённая курсовая'}</small>
             </div>
           </div>
           <button className="next-button" type="button" onClick={goToNextStep} disabled={!nextStepId}>
@@ -325,7 +326,7 @@ export default function Home() {
       <section className="rules-band" aria-label="Главные правила">
         <div><span>01</span><p><b>Лабораторные — строго по порядку.</b> Следующая открывается после предыдущей.</p></div>
         <div><span>02</span><p><b>Курсовая идёт параллельно.</b> Не оставляйте проект на декабрь.</p></div>
-        <div><span>03</span><p><b>Нет сданной курсовой — нет допуска.</b> Защита проходит в конце декабря.</p></div>
+        <div><span>03</span><p><b>Нет сданной курсовой — нет допуска.</b> Меньше 5 сданных лабораторных — тоже недопуск.</p></div>
       </section>
 
       <section className="journey-section" id="journey" aria-labelledby="journey-title">
@@ -534,17 +535,18 @@ export default function Home() {
           </article>
         </div>
         <p className="automatic-grades-note">Для автомата на «5» нужна пройденная межсессионная аттестация. Для «4» и «3» она не входит в условия.</p>
+        <p className="automatic-grades-note"><strong>Если сдано меньше 5 лабораторных работ, допуска к экзамену нет — даже при сданной курсовой.</strong></p>
       </section>
 
       <section className={`exam-section ${examReady ? 'is-ready' : ''}`} id="exam" aria-labelledby="exam-title">
         <div className="exam-orbit" aria-hidden="true"><span>ЭКЗ</span></div>
         <div className="exam-copy">
           <p className="kicker">Начало января</p>
-          <h2 id="exam-title">{examReady ? 'Допуск открыт.' : 'Экзамен — за воротами.'}</h2>
-          <p>{examReady ? 'Все обязательные этапы отмечены. Проверьте дату экзамена у преподавателя.' : 'Чтобы открыть допуск, сдайте все шесть лабораторных и защитите курсовую работу.'}</p>
+          <h2 id="exam-title">{examReady ? 'Допуск открыт.' : 'Нет допуска к экзамену.'}</h2>
+          <p>{examReady ? 'Условия допуска выполнены: сданы не менее пяти лабораторных и защищена курсовая. Проверьте дату экзамена у преподавателя.' : 'Для допуска нужны не менее пяти сданных лабораторных и защищённая курсовая работа.'}</p>
         </div>
         <div className="exam-requirements">
-          <div className={allLabsDone ? 'done' : ''}><span>{allLabsDone ? '✓' : '×'}</span><p><b>6 из 6 лабораторных</b><small>{allLabsDone ? 'Все сданы' : `${labs.filter((lab) => completed.includes(lab.id)).length} сдано сейчас`}</small></p></div>
+          <div className={enoughLabsForExam ? 'done' : ''}><span>{enoughLabsForExam ? '✓' : '×'}</span><p><b>Не менее 5 лабораторных</b><small>{`${completedLabsCount} из ${labs.length} сдано сейчас`}</small></p></div>
           <div className={courseworkDone ? 'done' : ''}><span>{courseworkDone ? '✓' : '×'}</span><p><b>Курсовая защищена</b><small>{courseworkDone ? 'Условие выполнено' : 'Без неё допуска нет'}</small></p></div>
         </div>
       </section>
