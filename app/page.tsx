@@ -236,12 +236,13 @@ export default function Home() {
       <header className="topbar">
         <a className="brand" href="#top" aria-label="В начало страницы">
           <span className="brand-mark">ИИ</span>
-          <span>ИТиС · СГТУ</span>
+          <span>ИИСиТ · СГТУ</span>
         </a>
         <nav className="desktop-nav" aria-label="Разделы страницы">
           <a href="#journey">Маршрут</a>
           <a href="#lectures">16 недель</a>
           <a href="#coursework">Курсовая</a>
+          <a href="#automatic-grades">Автомат</a>
           <a href="#exam">Допуск</a>
         </nav>
         <button
@@ -259,9 +260,8 @@ export default function Home() {
         <div className="hero-copy">
           <p className="kicker">Student journey · 1 сентября → январь</p>
           <h1>
-            Интеллектуальные
-            <br />
-            <span>технологии и системы</span>
+            Интеллектуальные информационные{' '}
+            <span>системы и технологии</span>
           </h1>
           <p className="hero-intro">
             Маршрут по дисциплине — от первой лекции до допуска к экзамену.
@@ -426,7 +426,7 @@ export default function Home() {
           </div>
           <p>Лабораторные появляются рядом с лекциями, на которых вы получаете нужную основу.</p>
         </div>
-        <div className="lecture-rail">
+        <div className="lecture-rail" role="region" aria-label="План 16 недель — прокрутите по горизонтали" tabIndex={0}>
           {lectures.map(([week, title, checkpoint], index) => (
             <article className={`lecture-stop ${index >= 13 ? 'is-defense' : ''}`} key={week}>
               <div className="rail-node"><span>{week}</span></div>
@@ -492,6 +492,50 @@ export default function Home() {
         </details>
       </section>
 
+      <section className="automatic-grades-section" id="automatic-grades" aria-labelledby="automatic-grades-title">
+        <div className="section-heading">
+          <div>
+            <p className="kicker">Оценка без экзамена</p>
+            <h2 id="automatic-grades-title">Как получить автомат</h2>
+          </div>
+          <p>Сданная курсовая нужна для любой оценки. Остальные условия зависят от оценки, на которую вы претендуете.</p>
+        </div>
+        <div className="automatic-grades-grid">
+          <article className="automatic-grade automatic-grade-excellent" aria-labelledby="grade-five-title">
+            <div className="automatic-grade-heading">
+              <span className="automatic-grade-value" aria-hidden="true">5</span>
+              <h3 id="grade-five-title">«5» — отлично</h3>
+            </div>
+            <ul>
+              <li>Сдана курсовая работа</li>
+              <li>Сданы все 6 лабораторных</li>
+              <li>Пройдена межсессионная аттестация</li>
+            </ul>
+          </article>
+          <article className="automatic-grade" aria-labelledby="grade-four-title">
+            <div className="automatic-grade-heading">
+              <span className="automatic-grade-value" aria-hidden="true">4</span>
+              <h3 id="grade-four-title">«4» — хорошо</h3>
+            </div>
+            <ul>
+              <li>Сдана курсовая работа</li>
+              <li>Сданы все 6 лабораторных</li>
+            </ul>
+          </article>
+          <article className="automatic-grade" aria-labelledby="grade-three-title">
+            <div className="automatic-grade-heading">
+              <span className="automatic-grade-value" aria-hidden="true">3</span>
+              <h3 id="grade-three-title">«3» — удовлетворительно</h3>
+            </div>
+            <ul>
+              <li>Сдана курсовая работа</li>
+              <li>Сданы 5 лабораторных</li>
+            </ul>
+          </article>
+        </div>
+        <p className="automatic-grades-note">Для автомата на «5» нужна пройденная межсессионная аттестация. Для «4» и «3» она не входит в условия.</p>
+      </section>
+
       <section className={`exam-section ${examReady ? 'is-ready' : ''}`} id="exam" aria-labelledby="exam-title">
         <div className="exam-orbit" aria-hidden="true"><span>ЭКЗ</span></div>
         <div className="exam-copy">
@@ -508,7 +552,7 @@ export default function Home() {
       <footer>
         <div>
           <span className="brand-mark">ИИ</span>
-          <p><b>Интеллектуальные технологии и системы</b><small>Интерактивная карта студента · СГТУ</small></p>
+          <p><b>Интеллектуальные информационные системы и технологии</b><small>ИИСиТ · Интерактивная карта студента · СГТУ</small></p>
         </div>
         <div className="source-links">
           <a href="https://docs.google.com/spreadsheets/d/1sgmVw-Pj7Vg7-z2pVq4O3uEMDqruHa6Ao4JxkIfFklA/edit" target="_blank" rel="noreferrer">План лекций ↗</a>

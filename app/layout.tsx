@@ -4,22 +4,22 @@ import './globals.css';
 const githubPagesUrl = 'https://jho00.github.io/iisit-student-journey';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   ?? (process.env.GITHUB_PAGES === 'true' ? githubPagesUrl : 'http://localhost:3000');
-const socialImageUrl = new URL('og.png', `${siteUrl.replace(/\/$/, '')}/`).toString();
+const socialImageUrl = new URL('og-iisit.png', `${siteUrl.replace(/\/$/, '')}/`).toString();
 
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Интеллектуальные технологии и системы · маршрут студента',
-  description: 'Интерактивная карта семестра по дисциплине «Интеллектуальные технологии и системы» в СГТУ.',
+  title: 'ИИСиТ · Интеллектуальные информационные системы и технологии · маршрут студента',
+  description: 'Интерактивная карта семестра по дисциплине «Интеллектуальные информационные системы и технологии» (ИИСиТ) в СГТУ: лабораторные, курсовая, аттестация и условия автомата.',
   openGraph: {
-    title: 'Интеллектуальные технологии и системы',
+    title: 'ИИСиТ · Интеллектуальные информационные системы и технологии',
     description: 'От первой лабораторной до экзамена.',
-    images: [{ url: socialImageUrl, width: 1200, height: 630, alt: 'Интеллектуальные технологии и системы' }],
+    images: [{ url: socialImageUrl, width: 1731, height: 909, alt: 'Интеллектуальные информационные системы и технологии' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Интеллектуальные технологии и системы',
+    title: 'ИИСиТ · Интеллектуальные информационные системы и технологии',
     description: 'От первой лабораторной до экзамена.',
     images: [socialImageUrl],
   },
